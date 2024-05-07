@@ -22,7 +22,8 @@ def create_recipe(user, **params):
     """Create and return the sample recipe."""
     defaults = {
         "title": "Sample recipe title",
-        "time_minutes": Decimal("5.25"),
+        "time_minutes": 22,
+         "price": Decimal("5.25"),
         "description": "Sample description",
         "link": "http://example.com/recipe.pdf",
     }
@@ -75,7 +76,7 @@ class PrivateRecipeAPITests(TestCase):
         create_recipe(user=other_user)
         create_recipe(user=self.user)
 
-        res = self.clien.get(RECIPES_URL)
+        res = self.client.get(RECIPES_URL)
 
         recipes = Recipe.objects.filter(user=self.user)
         serializer = RecipeSerializer(recipes, many=True)
